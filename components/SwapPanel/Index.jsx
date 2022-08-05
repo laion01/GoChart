@@ -13,6 +13,7 @@ import { hideSpinner, showSpinner, showWalletConnector } from "store/slices/util
 import { useUtil } from "store/hook";
 import { useDispatch } from "react-redux";
 import { RPCURL, SWAP } from "config";
+import { GoChartABI } from "config/gochartabi";
 import { ROUTER_ABI } from "config/swapabi"
 import { BEP20_ABI } from "config/abi";
 
@@ -187,12 +188,12 @@ export default function SwapPanel() {
     const estimateGasforSwap = async() => {
         let data;
         if(focusInput) {
-            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount1, account);
+            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount1, account, selectedNetwork.chainId);
             if(data.args[0] == -1) {
                 data.args[0] = 0;
             }
         } else {
-            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount0, account);
+            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount0, account, selectedNetwork.chainId);
         }   
     }
 
@@ -227,10 +228,10 @@ export default function SwapPanel() {
         try {
             dispatch(showSpinner());
             const web3 = new Web3(library.provider);
-            const RouterContract = new web3.eth.Contract(ROUTER_ABI, SWAP[selectedNetwork.chainId].router);
+            const RouterContract = new web3.eth.Contract(selectedNetwork.chainId == 97 ? GoChartABI : ROUTER_ABI, SWAP[selectedNetwork.chainId].router);
             let am = ethers.utils.parseUnits(amount0, tokenPair.token0.decimals);
             am = am.toString();
-            const data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, am, account);
+            const data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, am, account, selectedNetwork.chainId);
             console.log(data);
             const {success, gas, message}  = await estimateGas(account, RouterContract, data.func, data.value, data.args);
             if(!success) {

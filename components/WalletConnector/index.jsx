@@ -108,9 +108,9 @@ export default function WalletConnector() {
             <p className='mb-[20px] text-[24px] text-center text-[white]'>{account ? account.substring(0, 6) + "..." + account.substring(account.length - 4) : loading ? 'Connecting...' : 'Connect your wallet'}</p>
                 { !account &&
                     <div className='flex flex-col'>
-                        <WalletButton label={'Coinbase'} icon={'/images/svg/coinbaseicon.svg'} handleConnect={handleConnectProvider}/>
-                        <WalletButton label={'MetaMask'} icon={'/images/svg/metamaskicon.svg'} handleConnect={handleConnectProvider}/>
-                        <WalletButton label={'WalletConnect'} icon={'/images/svg/WalletConnecticon.svg'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'Coinbase'} icon={'/images/coinbaseicon.svg'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'MetaMask'} icon={'/images/metamaskicon.svg'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'WalletConnect'} icon={'/images/WalletConnecticon.svg'} handleConnect={handleConnectProvider}/>
                     </div>
                 }
                 { account &&

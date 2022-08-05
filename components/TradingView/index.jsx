@@ -1,47 +1,40 @@
-import { TradingViewEmbed, widgetType, AdvancedChart} from "react-tradingview-embed";
-// import TradingViewWidget, { Themes } from 'react-tradingview-widget';
 import { useState, useEffect } from 'react';
 
-export default function TradingView() {
-    const [isLoaded, setIsLoaded] = useState(false);
+let AdvancedChart = false;
+let TickerTape = false;
+export default function TradingView({ selectedToken }) {
+    let [update, setUpdate] = useState(false);
 
     useEffect(() => {
-        showTradingView();
-    }, []);
-
-    const showTradingView = () => {
-        setIsLoaded(true);
-    }
+        const tradingview = require('react-tradingview-embed');
+        AdvancedChart = tradingview.AdvancedChart;
+        TickerTape = tradingview.TickerTape;
+        setUpdate(true);
+    }, [update])
 
     return (
-        <div className="w-full">
-            <div className="mt-[20px]">
-                {/* <TradingViewEmbed
-                    widgetType={widgetType.TICKER_TAPE}
-                    widgetConfig={{
-                    colorTheme: "dark",
-                    autosize: true
-                    }}
-                /> */}
+        <div className="w-full mt-[20px]">
+            {update && 
+            <>
+            <div className='mb-[20px]'>
+                { TickerTape &&
+                    <TickerTape widgetProps={{
+                        "theme": "dark",
+                    }} />
+                }            
             </div>
-            <div className="w-full mt-[20px]">
-                { isLoaded && <TradingViewEmbed
-                    widgetType={widgetType.ADVANCED_CHART}
-                    widgetConfig={{
-                    colorTheme: "dark",
-                    symbol: "BITMEX:XBTUSD"
-                    }}
-                /> } 
+            <div className='mb-[20px]'>
+                { AdvancedChart && 
+                    <AdvancedChart widgetProps={{
+                        "theme": "dark", 
+                        "height": "450px",
+                        "symbol": "BNBUSD",
+                        // "symbol": selectedToken.symbol.length > 0 ? selectedToken.symbol + "USD" : "BNBUSD"
+                    }} />
+                }
             </div>
-            
-            {/* <TradingViewEmbed
-                widgetType={widgetType.SCREENER_CRYPTOCURRENCY}
-                widgetConfig={{
-                colorTheme: "dark",
-                width: "100%",
-                height: "230"
-                }}
-            /> */}
+            </>
+            }
             
         </div>
     )

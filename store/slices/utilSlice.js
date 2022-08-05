@@ -9,7 +9,21 @@ import {
     isSidebar: true,
     isSetting: false,
     isWalletConnector: false,
-    selectedNetwork: 'Polygon',
+    selectedNetwork: {
+      chainId: 56,
+      name: "Binance smart chain Mainnet",
+      symbol: "BSC(M)",
+      icon: "/images/binance.svg"
+    },
+    selectedToken: {
+      name: "BSC Native Token",
+      symbol: "BNB",
+      icon: "images/bnb.png",
+      addr: "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+      amount: 0.00,
+      decimals: 18,
+      isNativeToken: true
+    },
   };
   
   export const utilSlice = createSlice({
@@ -51,8 +65,12 @@ import {
         state.isWalletConnector = false;
       },
 
-      selectNetwork: (state) => {
-        state.selectedNetwork = "bsc";
+      selectNetwork: (state, action) => {
+        state.selectedNetwork = action.payload['network'];
+      },
+
+      selectToken: (state, action) => {
+        state.selectedToken = action.payload['token'];
       },
 
       showSetting: (state) => {
@@ -75,7 +93,9 @@ import {
     showSetting,
     hideSetting,
     showWalletConnector,
-    hideWalletConnector
+    hideWalletConnector,
+    selectToken,
+    selectNetwork
   } = utilSlice.actions;
   
   // exporting the reducer here, as we need to add this to the store

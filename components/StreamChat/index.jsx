@@ -18,7 +18,7 @@ export default function StreamChat() {
                     placeholder="Type a message"
                 ></input>
                 <div className="flex justify-end">
-                <button  className='relative bg-[#5cea69] hover:bg-[#40A349] border-2 border-[#afc4d3] border-b-[#7ea0b8] rounded-[6px] h-[32px] px-[20px] flex items-center justify-center text-[1.1rem]'
+                <button  className='relative bg-[#5cea69] hover:bg-[#40A349] rounded-[6px] h-[32px] px-[20px] flex items-center justify-center text-[1.1rem]'
                     onClick={() => {dispatch(showWalletConnector())}}> Send 
                 </button>
                 </div>

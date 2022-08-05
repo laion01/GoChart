@@ -1,9 +1,12 @@
 import Image from "next/image";
 
 export default function TokenListItem({icon, name, symbol, address, onClickHandler}) {
+    const onClick = () => {
+        onClickHandler({name, symbol, addr: address});
+    }
     return (
         <div className="w-full py-[1px] px-[20px] h-[80px] flex items-center"
-            onClick={() => console.log("asdfasdfasdf")}>
+            onClick={() => onClick()}>
             <div className="w-[60px] h-[60px] mr-[10px] flex justify-center items-center">
                 { icon && icon.length > 0 ?
                     <Image alt="" width={40} height={40}
@@ -15,7 +18,7 @@ export default function TokenListItem({icon, name, symbol, address, onClickHandl
             </div>
             <div className="flex flex-col">
                 <p className="text-[16px] text-[#ffffffb2]"> { name } </p>
-                <p className="text-[12px]"> { symbol + ' : ' + address} </p>
+                <p className="text-[12px] text-[#ffffff70]"> { symbol + ' : ' + address} </p>
             </div>
         </div>
     )

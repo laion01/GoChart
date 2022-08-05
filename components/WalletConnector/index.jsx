@@ -10,15 +10,16 @@ import { InjectedConnector } from "@web3-react/injected-connector";
 
 import { FontAwesomeSvgIcon } from 'react-fontawesome-svg-icon';
 import { faLock, faUnlock} from '@fortawesome/free-solid-svg-icons'
+import { useUtil } from 'store/hook';
 
 const MetamaskWallet = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42, 56,97]
+  supportedChainIds: [1, 56, 97, 137]
 });
 
 const CoinbaseWallet = new WalletLinkConnector({
     url: `https://data-seed-prebsc-2-s2.binance.org:8545`,
     appName: "Crypto Warriors ICO Platform",
-    supportedChainIds: [1, 3, 4, 5, 42, 56,97],
+    supportedChainIds: [1, 56, 97, 137],
 });
 
 const WalletConnect = new WalletConnectConnector({
@@ -31,7 +32,7 @@ export default function WalletConnector() {
 
     const { deactivate, activate, account, library, chainId, provider } = useWeb3React();
     const [ loading, setLoading] = useState(false);
-    
+    const { selectedNetwork } = useUtil();
     useEffect(() => {
         switchNetwork();
     }, [account, chainId, provider])
@@ -51,10 +52,9 @@ export default function WalletConnector() {
                 await activate(MetamaskWallet);
                 break;
             default:
-                activate(MetamaskWallet);
+                await activate(MetamaskWallet);
         }
         setLoading(false);
-        console.log(chainId);
         await switchNetwork();
     };
 
@@ -63,7 +63,7 @@ export default function WalletConnector() {
         try {
             await library.provider.request({
                 method: "wallet_switchEthereumChain",
-                params: [{ chainId: "0x38" }],
+                params: [{ chainId: '0x' + Number(selectedNetwork.chainId).toString(16) }],
             });
         } catch (switchError) {
             // 4902 error code indicates the chain is missing on the wallet
@@ -73,11 +73,11 @@ export default function WalletConnector() {
                     method: "wallet_addEthereumChain",
                     params: [
                     {
-                        chainId: "0x38",
-                        rpcUrls: ["https://bsc-dataseed1.binance.org"],
-                        chainName: "Binance Smart Chain Mainnet",
-                        nativeCurrency: { name: "BNB", decimals: 18, symbol: "BNB" },
-                        blockExplorerUrls: ["https://bscscan.com"],
+                        chainId: '0x' + Number(selectedNetwork.chainId).toString(16),
+                        rpcUrls: [selectedNetwork.rpcurl],
+                        chainName: selectedNetwork.name,
+                        nativeCurrency: selectedNetwork.nativeCurrency,
+                        blockExplorerUrls: selectedNetwork.blockExplorerUrls,
                         // iconUrls: ["https://harmonynews.one/wp-content/uploads/2019/11/slfdjs.png"]
                     }
                     ],
@@ -108,9 +108,9 @@ export default function WalletConnector() {
             <p className='mb-[20px] text-[24px] text-center text-[white]'>{account ? account.substring(0, 6) + "..." + account.substring(account.length - 4) : loading ? 'Connecting...' : 'Connect your wallet'}</p>
                 { !account &&
                     <div className='flex flex-col'>
-                        <WalletButton label={'Coinbase'} icon={'/images/svg/coinbaseicon.png'} handleConnect={handleConnectProvider}/>
-                        <WalletButton label={'MetaMask'} icon={'/images/svg/metamaskicon.png'} handleConnect={handleConnectProvider}/>
-                        <WalletButton label={'WalletConnect'} icon={'/images/svg/WalletConnecticon.png'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'Coinbase'} icon={'/images/svg/coinbaseicon.svg'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'MetaMask'} icon={'/images/svg/metamaskicon.svg'} handleConnect={handleConnectProvider}/>
+                        <WalletButton label={'WalletConnect'} icon={'/images/svg/WalletConnecticon.svg'} handleConnect={handleConnectProvider}/>
                     </div>
                 }
                 { account &&

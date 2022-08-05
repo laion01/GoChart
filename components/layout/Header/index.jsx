@@ -49,7 +49,7 @@ export default function Header() {
                     <NetworkSelector />
                     <div className='hidden lg:flex items-center'>
                         <button 
-                            className='relative bg-[#5cea69] hover:bg-[#40A349] border-2 border-[#afc4d3] border-b-[#7ea0b8] rounded-[6px] h-[40px] px-[20px] flex items-center justify-center mr-[10px] text-[1.1rem]'
+                            className='relative bg-[#5cea69] hover:bg-[#40A349] rounded-[6px] h-[40px] px-[20px] flex items-center justify-center mr-[10px] text-[1.1rem]'
                                 onClick={() => {dispatch(showWalletConnector())}}
                             >
                             {account ? account.substring(0, 6) + "..." + account.substring(account.length - 4) : 'Connect wallet'}
@@ -66,8 +66,7 @@ export default function Header() {
                 <div className='z-45 fixed w-full h-full bg-[#00000050] top-0'
                 onClick={() => {dispatch(hideWalletConnector())}}
                 ></div>
-            }
-            
+            }           
         </div>
     )
 }

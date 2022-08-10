@@ -51,7 +51,6 @@ export default function SwapPanel() {
         if(!account)
             return ;
         let amount = await getTokenAmount(tokenPair.token0, account, chainId);
-        console.log("load token amount : ", amount, tokenPair.token0);
         setMyTokenAmount(amount);
     }
 
@@ -262,13 +261,29 @@ export default function SwapPanel() {
         }
     }
 
+    const reduceNumebrs = (num) => {
+        let ans = String(num).split('.');
+        if(ans.length >= 2) {
+            ans = ans[0] + '.' + ans[1].substring(0, 2);
+        } else {
+            ans = ans[0];
+        }
+        return ans;
+    }
+
     return (
         <div className="w-full flex flex-col bg-[#1E2735] min-h-[500px] mt-[20px]">
             <div className="w-full h-[60px] items center p-[10px] bg-[#111822] mb-[20px] flex flex-col justify-center">
                 <p className="text-[#ffffffb2] text-[1.25rem]"> Swap </p>
             </div>
             <div className="flex flex-col mb-[20px] bg-[black] rounded-[5px] m-[10px] p-[10px]">
-                <p className="text-[white] pl-[10px] mb-[5px] text-[#5cea69]"> From </p>
+                <div className="flex justify-between">
+                    <p className="text-[white] pl-[10px] mb-[5px] text-[#5cea69]"> From </p>
+                    { account && 
+                        <p className="text-[white] pl-[10px] mb-[5px] text-right"> { reduceNumebrs(ethers.utils.formatUnits(tAmount, tokenPair.token0.decimals))} </p>
+                    }
+                </div>
+                
                 <div className="flex">
                     <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0 appearance-none"
                         type={"number"} placeholder={"0.00"}

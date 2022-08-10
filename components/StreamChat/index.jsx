@@ -1,8 +1,17 @@
+import Image from "next/image";
+
 export default function StreamChat() {
     return (
         <div className="w-full flex flex-col bg-[#1E2735] min-h-[500px]">
-            <div className="w-full h-[45px] items center p-[10px] bg-[#111822]">
-                <p className="text-[#ffffffb2]"> Stream chat </p>
+            <div className="w-full h-[60px] items center p-[10px] bg-[#111822] flex flex-col justify-center">
+                <p className="text-[#ffffffb2] text-[1.25rem]"> Stream chat </p>
+                <div className="flex text-[#ffffffb2] text-[.75rem] items-center">
+                    <div className="w-[12px] h-[12px] items-center mr-[5px] mb-[3px]">
+                        <Image alt='' width={12} height={12}
+                            src="/images/cryptogram-chat.png"/>
+                    </div>
+                    <p> Powered by Cryptogram </p>
+                </div>
             </div>
             <div className="w-full min-h-[200px]">
 

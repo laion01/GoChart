@@ -263,31 +263,35 @@ export default function SwapPanel() {
     }
 
     return (
-        <div className="mt-[30px] w-full">
-            <h1 className="text-[white] mb-[20px] text-[24px]"> Swap </h1>
-            <div className="w-full flex flex-col mb-[20px]">
-                <p className="text-[white] pl-[10px] mb-[5px]"> From </p>
+        <div className="w-full flex flex-col bg-[#1E2735] min-h-[500px] mt-[20px]">
+            <div className="w-full h-[60px] items center p-[10px] bg-[#111822] mb-[20px] flex flex-col justify-center">
+                <p className="text-[#ffffffb2] text-[1.25rem]"> Swap </p>
+            </div>
+            <div className="flex flex-col mb-[20px] bg-[black] rounded-[5px] m-[10px] p-[10px]">
+                <p className="text-[white] pl-[10px] mb-[5px] text-[#5cea69]"> From </p>
                 <div className="flex">
-                    <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0"
-                        type={"number"}
+                    <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0 appearance-none"
+                        type={"number"} placeholder={"0.00"}
                         onChange={(e) => onAmountChange(0, e.target.value)} value={amount0}
                         onKeyDown={(e) => onInputKeydown(0)}/>
                     <TokenButton label={tokenPair.token0.symbol} id={1} onClickHandler={openTokenSelector}/>
                 </div>
+                <p className="text-[white] pl-[10px] my-[5px] text-[10px]"> {tokenPair.token0.addr} </p>
             </div>
-            <div className="w-full flex justify-center items-center h-[24px]"
+            <div className="w-full flex justify-center items-center h-[24px] mb-[10px]"
                 onClick={() => onInversePair()}>
                 <FontAwesomeSvgIcon icon={faArrowDown} className="text-[#5cea69] h-[24px] w-[24px]"/>
             </div>
-            <div className="w-full flex flex-col mb-[20px]">
-                <p className="text-[white] pl-[10px] mb-[5px]"> To </p>
+            <div className="flex flex-col mb-[20px] bg-[black] rounded-[5px] m-[10px] p-[10px]">
+                <p className="text-[white] pl-[10px] mb-[5px] text-[#5cea69]"> To </p>
                 <div className="flex">
                     <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0"
-                        type={"number"}
+                        type={"number"} placeholder={"0.00"}
                         onChange={(e) => onAmountChange(1, e.target.value)} value={amount1}
                         onKeyDown={(e) => onInputKeydown(1)}/>
                     <TokenButton label={tokenPair.token1.symbol} id={2} onClickHandler={openTokenSelector}/>
                 </div>
+                <p className="text-[white] pl-[10px] my-[5px] text-[10px]"> {tokenPair.token0.addr} </p>
             </div>
             <div className="w-full flex justify-end mb-[20px]">
                 { ( !tokenPair.token0.isNativeToken && swapStatus == 0 && account) &&
@@ -298,13 +302,13 @@ export default function SwapPanel() {
                     </button>
                 }
                 {  !account &&
-                    <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px]"
+                    <button className="w-full flex justify-center items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px] mx-[10px] items-center"
                         onClick={() => dispatch(showWalletConnector())}>
                         <p className="px-[5px]"> Connect Wallet </p>
                     </button>
                 }
                 {  (swapStatus == 0 && account) &&
-                    <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px]"
+                    <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px] mr-10px"
                         onClick={() => onSwap()}>
                         <p className="px-[5px]"> Swap </p>
                     </button>

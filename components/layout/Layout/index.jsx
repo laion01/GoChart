@@ -11,6 +11,8 @@ import TradingView from "components/TradingView";
 import StreamChat from "components/StreamChat";
 import SwapPanel from "components/SwapPanel/Index";
 import SettingsPanel from "components/SettingsPanel";
+import TrendingBar from "components/TrendingBar";
+import PairDetails from "components/PairDetails";
 
 let AdvancedChart, TickerTape;
 
@@ -34,6 +36,8 @@ export default function Layout({ children }) {
                     <div className="w-full">
                         <Image alt="" src="/images/banner/banner.png" width={671} height={88} layout={'responsive'}/>
                     </div>
+                    <TrendingBar/>
+                    <PairDetails/>
                     <TradingView selectedToken={ selectedToken } AdvancedChart={AdvancedChart} TickerTape={TickerTape}/>
                 </div>
                 <div className="min-w-[320px] m-[10px] flex flex-col"> 

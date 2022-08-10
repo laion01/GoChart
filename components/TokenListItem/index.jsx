@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function TokenListItem({icon, name, symbol, address, onClickHandler}) {
+export default function TokenListItem({icon, name, symbol, address, isNativeToken, onClickHandler}) {
     const onClick = () => {
-        onClickHandler({name, symbol, addr: address});
+        onClickHandler({name, symbol, addr: address, isNativeToken});
     }
     return (
         <div className="w-full py-[1px] px-[20px] h-[80px] flex items-center"

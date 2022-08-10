@@ -27,14 +27,14 @@ export const estimateGas = async(account, contract, func, value, args) => {
         }
     } catch(e) {
         console.log(e);
-        let msg;
         if(e.message.startsWith("Internal JSON-RPC error.")) {
-            msg = JSON.parse(e.message.substr(24));
+            e = JSON.parse(e.message.substr(24));
+            console.log("new message", e);
         }
         return {
             success: false,
             gas: -1,
-            message: ""
+            message: e.message
         }
     }
 }
@@ -106,7 +106,18 @@ export const getAllowance = async(token, account, dest, chainId) => {
     }
 }
 
-export const getSwapData = (f, token0, token1, amount, account, chainId) => {
+export const getAmountsIn = async(router, amount, path) => {
+    try {
+        const web3 = new Web3(RPCURL[chainId]);
+        const RouterContract = new web3.eth.Contract(GoChartABI, router);
+        const ans = await RouterContract.methods.getAmountsIn(amount, path, 1);
+        console.log("getAmountsIn: ", ans);
+    } catch(e) {
+        console.log(e);
+    }
+}
+
+export const getSwapData = (f, token0, token1, amount, amount1, account, chainId) => {
     const func = "";
     const args = [];
     let time = new Date().getTime();
@@ -128,30 +139,28 @@ export const getSwapData = (f, token0, token1, amount, account, chainId) => {
                     args.push("100");
                     args.push("1");
                 }
-                return {func, args, value: 0};
+                return {func, args, value: "0"};
             } else {
-                func = "swapExactTokensForTokens";
+                func = "swapExactTokensForTokensSupportingFeeOnTransferTokens";
                 args = [amount, 0, [token0.addr, token1.addr], account, time];
                 if(chainId == 97) {
-                    args.push("100");
                     args.push("1");
                 }
-                return {func, args, value:0};
+                return {func, args, value: "0"};
             }
         }
     } else {
         if(token0.isNativeToken) {
-            func = "swapETHforExactTokens";
-            args = [amount, [token0.addr, token1.addr], account, time];
+            func = "swapETHForExactTokens";
+            args = [amount1, [token0.addr, token1.addr], account, time];
             if(chainId == 97) {
                 args.push("100");
                 args.push("1");
             }
-            return {func, args, value: 0};
-
+            return {func, args, value: amount};
         } else {
             if(token1.isNativeToken) {
-                args = [0, amount, [token0.addr, token1.addr], account, time]
+                args = [amount1, amount, [token0.addr, token1.addr], account, time]
                 if(chainId == 97) {
                     args.push("100");
                     args.push("1");
@@ -159,13 +168,12 @@ export const getSwapData = (f, token0, token1, amount, account, chainId) => {
                 func = "swapTokensForExactETH";
                 return {func, args, value: 0};
             } else {
-                func = "swapTokensForExactTokens";
-                args = [0, amount, [token0.addr, token1.addr], account, time];
+                func = "swapExactTokensForTokensSupportingFeeOnTransferTokens";
+                args = [amount, 0, [token0.addr, token1.addr], account, time];
                 if(chainId == 97) {
-                    args.push("100");
                     args.push("1");
                 }
-                return {func, args, value: 0};
+                return {func, args, value: "0"};
             }
         }
     }

@@ -77,7 +77,15 @@ export const tokens = {
             amount: 0.00,
             decimals: 18,
             isNativeToken: false
-        },
+        },{
+            name: "Binance USD",
+            symbol: "BUSD",
+            icon: "images/gc.png",
+            addr: "0x78867bbeef44f2326bf8ddd1941a4439382ef2a7",
+            amount: 0.00,
+            decimals: 18,
+            isNativeToken: false
+        }
     ]
 }
 

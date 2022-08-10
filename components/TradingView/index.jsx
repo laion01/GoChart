@@ -1,21 +1,10 @@
 import { useState, useEffect } from 'react';
 
-let AdvancedChart = false;
-let TickerTape = false;
-export default function TradingView({ selectedToken }) {
-    let [update, setUpdate] = useState(false);
-
-    useEffect(() => {
-        const tradingview = require('react-tradingview-embed');
-        AdvancedChart = tradingview.AdvancedChart;
-        TickerTape = tradingview.TickerTape;
-        setUpdate(true);
-    }, [update])
+export default function TradingView({ selectedToken, AdvancedChart, TickerTape }) {
+    
 
     return (
         <div className="w-full mt-[20px]">
-            {update && 
-            <>
             <div className='mb-[20px]'>
                 { TickerTape &&
                     <TickerTape widgetProps={{
@@ -33,9 +22,6 @@ export default function TradingView({ selectedToken }) {
                     }} />
                 }
             </div>
-            </>
-            }
-            
         </div>
     )
 };

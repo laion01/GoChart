@@ -36,11 +36,15 @@ export default function SwapPanel() {
 
     useEffect(() => {
         setTokenPair(defaultPairs[selectedNetwork.chainId]);
+        setAmount0(0);
+        setAmount1(0);
     }, [selectedNetwork]);
 
     useEffect(() => {
         loadPairInfo();
         loadTokenAmount();
+        setAmount0(0);
+        setAmount1(0);
     }, [tokenPair, library, account]);
 
     const loadTokenAmount = async() => {
@@ -102,8 +106,16 @@ export default function SwapPanel() {
     const onTokenSelect = (token) => {
         const newPair = tokenPair;
         if(isTokenSelector == 1) {
+            if(token.addr == tokenPair.token1.addr || token.addr == tokenPair.token0.addr) {
+                openTokenSelector(0);
+                return ;
+            }
             newPair.token0 = token;
         } else {
+            if(token.addr == tokenPair.token0.addr || token.addr == tokenPair.token1.addr) {
+                openTokenSelector(0);
+                return ;
+            }
             newPair.token1 = token;
         }
         setTokenPair(newPair);
@@ -125,6 +137,8 @@ export default function SwapPanel() {
     }
 
     const onAmountChange = (input, value) => {
+        let res = Number(value);
+        res = res.toString();
         if(input == 0) {
             setAmount0(value);
             setApproved(false);
@@ -185,18 +199,6 @@ export default function SwapPanel() {
         }
     }
 
-    const estimateGasforSwap = async() => {
-        let data;
-        if(focusInput) {
-            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount1, account, selectedNetwork.chainId);
-            if(data.args[0] == -1) {
-                data.args[0] = 0;
-            }
-        } else {
-            data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, amount0, account, selectedNetwork.chainId);
-        }   
-    }
-
     const onInputKeydown = (input) => {
         selectFocus(input);
     }
@@ -229,19 +231,29 @@ export default function SwapPanel() {
             dispatch(showSpinner());
             const web3 = new Web3(library.provider);
             const RouterContract = new web3.eth.Contract(selectedNetwork.chainId == 97 ? GoChartABI : ROUTER_ABI, SWAP[selectedNetwork.chainId].router);
-            let am = ethers.utils.parseUnits(amount0, tokenPair.token0.decimals);
+            let am = Number(amount0);
+            let am1 = Number(amount1);
+            if(focusInput != 0 && (tokenPair.token0.isNativeToken || tokenPair.token1.isNativeToken)) {
+                console.log(am);
+                am = 11 * am / 10.0;
+            }
+            am = ethers.utils.parseUnits("" + am, tokenPair.token0.decimals);
+            am1 = ethers.utils.parseUnits("" + am1, tokenPair.token1.decimals);
             am = am.toString();
-            const data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, am, account, selectedNetwork.chainId);
-            console.log(data);
+            am1 = am1.toString();
+            
+            const data = getSwapData(focusInput, tokenPair.token0, tokenPair.token1, am, am1, account, selectedNetwork.chainId);
             const {success, gas, message}  = await estimateGas(account, RouterContract, data.func, data.value, data.args);
             if(!success) {
                 dispatch(hideSpinner());
                 toast.error(message);
                 return;
             }
-            console.log("4.0", gas);
             const res = await runSmartContract(account, RouterContract, data.func, data.value, data.args)
             toast.success("Success");
+            setApproved(false);
+            setAmount0(0);
+            setAmount1(0);
             dispatch(hideSpinner());
         } catch (e) {
             dispatch(hideSpinner());
@@ -257,6 +269,7 @@ export default function SwapPanel() {
                 <p className="text-[white] pl-[10px] mb-[5px]"> From </p>
                 <div className="flex">
                     <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0"
+                        type={"number"}
                         onChange={(e) => onAmountChange(0, e.target.value)} value={amount0}
                         onKeyDown={(e) => onInputKeydown(0)}/>
                     <TokenButton label={tokenPair.token0.symbol} id={1} onClickHandler={openTokenSelector}/>
@@ -270,20 +283,21 @@ export default function SwapPanel() {
                 <p className="text-[white] pl-[10px] mb-[5px]"> To </p>
                 <div className="flex">
                     <input className="h-[40px] min-w-[100px] bg-[transparent] border-b-[1px] border-[#1E2735] px-[10px] text-[white] mr-[10px] grow outline-0"
+                        type={"number"}
                         onChange={(e) => onAmountChange(1, e.target.value)} value={amount1}
                         onKeyDown={(e) => onInputKeydown(1)}/>
                     <TokenButton label={tokenPair.token1.symbol} id={2} onClickHandler={openTokenSelector}/>
                 </div>
             </div>
             <div className="w-full flex justify-end mb-[20px]">
-                { ( swapStatus == 0 && account && !tokenPair.token0.isNativeToken) &&
+                { ( !tokenPair.token0.isNativeToken && swapStatus == 0 && account) &&
                     <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px] mr-[10px]"
                         disabled={approved}
                         onClick={() => onApprove()}>
                         <p className="px-[5px]"> {"Approve " + tokenPair.token0.symbol } </p>
                     </button>
                 }
-                {  (swapStatus == 0 && !account) &&
+                {  !account &&
                     <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px]"
                         onClick={() => dispatch(showWalletConnector())}>
                         <p className="px-[5px]"> Connect Wallet </p>
@@ -295,10 +309,10 @@ export default function SwapPanel() {
                         <p className="px-[5px]"> Swap </p>
                     </button>
                 }
-                { swapStatus == 1 && 
+                { (swapStatus == 1 && account) && 
                     <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px]"
-                        onClick={() => dispatch(showWalletConnector())}>
-                        <p className="px-[5px]"> Insusficiant Funds </p>
+                        disabled={true}>
+                        <p className="px-[5px]"> Insusficient Funds </p>
                     </button>
                 }   
             </div>

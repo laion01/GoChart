@@ -101,7 +101,7 @@ export default function TokenSelector() {
                     <div className="absolute w-full max-h-[320px] bg-[#1E2735] rounded-[8px] mt-[5px] flex flex-col overflow-scroll overflow-x-auto z-40">
                         {
                             tokenList.filter(token => checkSearch(token, searchString)).map((token, key) =>
-                                <TokenListItem key={key} name={token.name} symbol={token.symbol} address={token.addr} onClickHandler={onSelect}/>
+                                <TokenListItem key={key} name={token.name} symbol={token.symbol} address={token.addr} isNativeToken={token.isNativeToken} onClickHandler={onSelect}/>
                             )
                         }
                         { isEmpty && 

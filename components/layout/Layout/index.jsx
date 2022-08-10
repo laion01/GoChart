@@ -12,26 +12,34 @@ import StreamChat from "components/StreamChat";
 import SwapPanel from "components/SwapPanel/Index";
 import SettingsPanel from "components/SettingsPanel";
 
+let AdvancedChart, TickerTape;
 
 export default function Layout({ children }) {
     const { isOverlay, isSpinner, isSidebar, isSetting, selectedToken } = useUtil();
+    let [update, setUpdate] = useState(false);
+
+    useEffect(() => {
+        const tradingview = require('react-tradingview-embed');
+        AdvancedChart = tradingview.AdvancedChart;
+        TickerTape = tradingview.TickerTape;
+        setUpdate(true);
+    })
 
     return (
         <div>
             <Header />
             <Sidebar />
             <div className={"mt-[61px] min-h-[200px] flex justify-center bg-[black] flex" + (isSidebar ? " ml-[250px]" : " ml-[70px]")}>
-                <div className="w-full flex flex-col m-[10px] justify-start min-w-[500px]  overflow-x-auto overflow-y-auto"> 
+                <div className="w-full flex flex-col m-[10px] justify-start min-w-[500px]"> 
                     <div className="w-full">
                         <Image alt="" src="/images/banner/banner.png" width={671} height={88} layout={'responsive'}/>
                     </div>
-                    <TradingView selectedToken={ selectedToken }/>
+                    <TradingView selectedToken={ selectedToken } AdvancedChart={AdvancedChart} TickerTape={TickerTape}/>
                 </div>
                 <div className="min-w-[320px] m-[10px] flex flex-col"> 
                     <StreamChat />
                     <SwapPanel />
                 </div>
-                
             </div>
             { isSetting &&
                 <SettingsPanel />

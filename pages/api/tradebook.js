@@ -1,8 +1,10 @@
-export default handler = async (req, res) => {
+export default async (req, res) => {
     if (req.method == "POST") {
         if (!req.body.contract_address) {
             res.json({ success: false });
         }
+
+        console.log(req.body.contract_address);
 
         var nowtime = new Date().toISOString();
         const query = `{

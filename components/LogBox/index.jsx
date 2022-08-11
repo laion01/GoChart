@@ -32,7 +32,7 @@ export default function LogBox() {
     }
 
     return (
-        <div className="w-full rounded-[5px] bg-[#1E2735] mt-[20px]">
+        <div className="w-full rounded-[5px] bg-[#1E2735] mt-[20px] overflow-x-scroll overflow-y-auto">
             <div className="flex justify-start items-center p-[10px]">
                 <button className={(selectedTab=="Tradebook" ? "bg-[#2c3542] " : "") + "px-[20px] py-[5px] text-center rounded-[.25rem] text-white mr-[10px]"}
                     onClick={() => onSelectTab("Tradebook")}>

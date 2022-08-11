@@ -31,7 +31,7 @@ export default function Layout({ children }) {
         const tradingview = require('react-tradingview-embed');
         AdvancedChart = tradingview.AdvancedChart;
         TickerTape = tradingview.TickerTape;
-        setUpdate(true);
+        setUpdate(!update);
         console.log("trading view rended")
     }, [])
 
@@ -40,7 +40,7 @@ export default function Layout({ children }) {
             <Header />
             <Sidebar />
             <div className={"mt-[61px] min-h-[200px] flex justify-center bg-[black] flex flex-col lg:flex-row" + (isSidebar ? " ml-[250px]" : " lg:ml-[70px] ml-[0px]")}>
-                <div className="flex flex-col m-[10px] justify-start min-w-[500px] grow"> 
+                <div className="flex flex-col m-[10px] justify-start grow"> 
                     <div className="w-full">
                         <Image alt="" src="/images/banner/banner.png" width={671} height={88} layout={'responsive'}/>
                     </div>

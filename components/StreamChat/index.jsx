@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { FontAwesomeSvgIcon } from 'react-fontawesome-svg-icon';
+import { faGear} from '@fortawesome/free-solid-svg-icons'
 
 export default function StreamChat() {
     return (
-        <div className="w-full flex flex-col bg-[#1E2735] min-h-[500px]">
+        <div className="w-full flex flex-col bg-[#1E2735] lg:h-[calc(100vh-80px)] h-[calc(100vh-140px)]">
             <div className="w-full h-[60px] items center p-[10px] bg-[#111822] flex flex-col justify-center">
                 <p className="text-[#ffffffb2] text-[1.25rem]"> Stream chat </p>
                 <div className="flex text-[#ffffffb2] text-[.75rem] items-center">
@@ -13,7 +15,8 @@ export default function StreamChat() {
                     <p> Powered by Cryptogram </p>
                 </div>
             </div>
-            <div className="w-full min-h-[200px]">
+            <p className="p-[10px] text-[gray] text-[.75rem]"> Welcome to the chat room!</p>
+            <div className="w-full min-h-[200px] grow px-[10px]">
 
             </div>
             <div className="p-[10px]">
@@ -26,10 +29,13 @@ export default function StreamChat() {
                     type="text"
                     placeholder="Type a message"
                 ></input>
-                <div className="flex justify-end">
-                <button  className='relative bg-[#5cea69] hover:bg-[#40A349] rounded-[6px] h-[32px] px-[20px] flex items-center justify-center text-[1.1rem]'
-                    onClick={() => {dispatch(showWalletConnector())}}> Send 
-                </button>
+                <div className="flex justify-end items-center">
+                    <button>
+                        <FontAwesomeSvgIcon icon={ faGear } className="w-[24px] h-[24px] mr-[10px] w-[24px] text-[gray]"/>
+                    </button>
+                    <button  className='relative bg-[#5cea69] hover:bg-[#40A349] rounded-[6px] h-[32px] px-[20px] flex items-center justify-center text-[1.1rem]'
+                        onClick={() => {dispatch(showWalletConnector())}}> Send 
+                    </button>
                 </div>
             </div>
         </div>

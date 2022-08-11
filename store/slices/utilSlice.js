@@ -6,7 +6,7 @@ import {
   const initialState = {
     isOverlay: false,
     isSpinner: false,
-    isSidebar: true,
+    isSidebar: false,
     isSetting: false,
     isWalletConnector: false,
     selectedNetwork: {

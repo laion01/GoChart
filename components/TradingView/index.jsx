@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 
 export default function TradingView({ selectedToken, AdvancedChart, TickerTape }) {
-    
-
     return (
         <div className="w-full mt-[20px]">
             <div className='mb-[20px]'>
@@ -18,7 +16,7 @@ export default function TradingView({ selectedToken, AdvancedChart, TickerTape }
                         "theme": "dark", 
                         "height": "450px",
                         "symbol": "BNBUSD",
-                        // "symbol": selectedToken.symbol.length > 0 ? selectedToken.symbol + "USD" : "BNBUSD"
+                        "symbol": selectedToken.symbol.length > 0 ? selectedToken.symbol + "USD" : "BNBUSD"
                     }} />
                 }
             </div>

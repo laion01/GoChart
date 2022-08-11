@@ -13,11 +13,18 @@ import SwapPanel from "components/SwapPanel/Index";
 import SettingsPanel from "components/SettingsPanel";
 import TrendingBar from "components/TrendingBar";
 import PairDetails from "components/PairDetails";
+import LogBox from "components/LogBox";
+import { useSelector } from "react-redux";
 
 let AdvancedChart, TickerTape;
 
 export default function Layout({ children }) {
-    const { isOverlay, isSpinner, isSidebar, isSetting, selectedToken } = useUtil();
+    // const { isOverlay, isSpinner, isSidebar, isSetting } = useUtil();
+    const isOverlay = useSelector((state) => state.util.isOverlay);
+    const isSpinner = useSelector((state) => state.util.isSpinner);
+    const isSidebar = useSelector((state) => state.util.isSidebar);
+    const isSetting = useSelector((state) => state.util.isSetting);
+    const selectedToken = useSelector((state) => state.util.selectedToken);
     let [update, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -25,20 +32,22 @@ export default function Layout({ children }) {
         AdvancedChart = tradingview.AdvancedChart;
         TickerTape = tradingview.TickerTape;
         setUpdate(true);
-    })
+        console.log("trading view rended")
+    }, [])
 
     return (
         <div>
             <Header />
             <Sidebar />
-            <div className={"mt-[61px] min-h-[200px] flex justify-center bg-[black] flex" + (isSidebar ? " ml-[250px]" : " ml-[70px]")}>
-                <div className="w-full flex flex-col m-[10px] justify-start min-w-[500px]"> 
+            <div className={"mt-[61px] min-h-[200px] flex justify-center bg-[black] flex flex-col lg:flex-row" + (isSidebar ? " ml-[250px]" : " lg:ml-[70px] ml-[0px]")}>
+                <div className="flex flex-col m-[10px] justify-start min-w-[500px] grow"> 
                     <div className="w-full">
                         <Image alt="" src="/images/banner/banner.png" width={671} height={88} layout={'responsive'}/>
                     </div>
                     <TrendingBar/>
                     <PairDetails/>
                     <TradingView selectedToken={ selectedToken } AdvancedChart={AdvancedChart} TickerTape={TickerTape}/>
+                    <LogBox/>
                 </div>
                 <div className="min-w-[320px] m-[10px] flex flex-col"> 
                     <StreamChat />

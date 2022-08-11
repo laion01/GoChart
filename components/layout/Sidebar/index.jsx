@@ -11,7 +11,7 @@ export default function Sidebar() {
     }
 
     return (
-        <div className={"fixed left-0 top-[61px] h-[100%] bg-[black] p-[8px]" + (isSidebar ? " w-[250px]" : " w-[70px]")}>
+        <div className={"fixed left-0 top-[61px] h-[100%] bg-[black] p-[8px] z-10" + (isSidebar ? " lg:w-[250px] w-full" : " lg:w-[70px] lg:flex lg:flex-col hidden w-[0px]")}>
             <ListItem label="Home" onClickHandler={onItemClick} keycode={0} isSelected={selectedItem}/>
             <ListItem label="Chart" onClickHandler={onItemClick} keycode={1} isSelected={selectedItem}/>
             <ListItem label="Cryptocurrences" onClickHandler={onItemClick} keycode={2} isSelected={selectedItem}/>

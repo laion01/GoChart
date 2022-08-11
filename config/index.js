@@ -72,3 +72,5 @@ export const SWAP = {
         factory: "0xB7926C0430Afb07AA7DEfDE6DA862aE0Bde767bc"
     }
 }
+
+export const SERVER_ADDR = "/api";

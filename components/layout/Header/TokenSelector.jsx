@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { selectToken } from 'store/slices/utilSlice';
 import { useUtil } from "store/hook";
 
-export default function TokenSelector() {
+export default function TokenSelector({cls}) {
     const {selectedNetwork} = useUtil();
     const [searchString, setTokenAddress] = useState("");
     const [isDropDown, openDropDown] = useState(false);
@@ -38,6 +38,8 @@ export default function TokenSelector() {
     }
 
     const onChange = (value) => {
+
+        setTokenAddress(value);
         if(String(value).length > 0) {
             openDropDown(true);
         } else {
@@ -56,7 +58,6 @@ export default function TokenSelector() {
             setEmpty(false);
         }
         
-        setTokenAddress(value);
         
     }
 
@@ -79,10 +80,10 @@ export default function TokenSelector() {
     }
 
     return (
-        <div className="relative mr-[10px]">
+        <div className={"relative mr-[10px] " + cls}>
             <div className="w-full flex">
                 <input 
-                    className="w-[420px] h-[40px] text-[white] rounded-l-[8px] px-[10px] bg-[#1E2735] caret-[white]"
+                    className="max-w-[320px] h-[40px] text-[white] rounded-l-[8px] px-[10px] bg-[#1E2735] caret-[white]"
                     placeholder="Input Token address"
                     value={searchString}
                     type='text'
@@ -98,7 +99,7 @@ export default function TokenSelector() {
                     <div className="fixed top-0 left-0 w-[100vw] h-[100vh] z-40" 
                         onClick={() => openDropDown(false)}>
                     </div>
-                    <div className="absolute w-full max-h-[320px] bg-[#1E2735] rounded-[8px] mt-[5px] flex flex-col overflow-scroll overflow-x-auto z-40">
+                    <div className="absolute w-full max-h-[320px] bg-[#1E2735] rounded-[8px] mt-[5px] flex flex-col overflow-scroll overflow-x-auto z-40 top-[45px]">
                         {
                             tokenList.filter(token => checkSearch(token, searchString)).map((token, key) =>
                                 <TokenListItem key={key} name={token.name} symbol={token.symbol} address={token.addr} isNativeToken={token.isNativeToken} onClickHandler={onSelect}/>

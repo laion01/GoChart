@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import { selectNetwork } from 'store/slices/utilSlice';
 
-export default function NetworkSelector() {
+export default function NetworkSelector({cls}) {
     const { account, library } = useWeb3React();
     const [ isDropDown, openDropDown] = useState(false);
     const { selectedNetwork }  = useUtil();
@@ -60,7 +60,7 @@ export default function NetworkSelector() {
     };
 
     return (
-        <div className="relative">
+        <div className={cls + " relative"}>
             <button 
                 className='relative bg-[#5cea69] hover:bg-[#40A349] rounded-[6px] h-[40px] px-[20px] flex items-center justify-center mr-[10px] text-[1.1rem]'
                     onClick={() => openDropDown(true)}
@@ -82,7 +82,7 @@ export default function NetworkSelector() {
                     <div className="fixed top-0 left-0 w-[100vw] h-[100vh] z-40" 
                         onClick={() => openDropDown(false)}>
                     </div>
-                    <div className="absolute w-full h-auto bg-[#1E2735] rounded-[8px] mt-[5px] mr-[10px] shadow border border-[#ffffff70] z-40">
+                    <div className="absolute w-full h-auto bg-[#1E2735] rounded-[8px] mt-[5px] mr-[10px] shadow border border-[#ffffff70] z-40 top-[45px]">
                         { NETWORKS.map((item, key) => 
                             <div className="w-full p-[10px] flex items-center hover:bg-[#ffffff70] text-[#ffffffb2] hover:text-[#000000b2]" key={key}
                                 onClick = {() => onSelectNetwork(item)}>

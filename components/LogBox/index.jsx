@@ -3,7 +3,7 @@ import TailwindConfig from "tailwind.config";
 import { getTradeBook } from "utils/api";
 import { useSelector } from "react-redux";
 
-export default function() {
+export default function LogBox() {
     const selectedToken = useSelector((state) => state.util.selectedToken);
     const [tradeBook, setTradeBook] = useState([]);
     const [selectedTab, selectTab] = useState("Holders");

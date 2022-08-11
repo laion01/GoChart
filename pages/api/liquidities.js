@@ -1,5 +1,5 @@
 let recent_liquidities = [];
-let fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 export default handler = async (req, res) => {
     if (req.method == "POST") {

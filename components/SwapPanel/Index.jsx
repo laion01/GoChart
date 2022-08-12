@@ -1,6 +1,6 @@
 import TokenButton from "./TokenButton";
 import { FontAwesomeSvgIcon } from "react-fontawesome-svg-icon";
-import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faArrowDown, faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import TokenSelectorPanel from "components/TokenSelectorPanel";
 import { useEffect, useState } from "react";
@@ -300,6 +300,24 @@ export default function SwapPanel() {
                     <TokenButton label={tokenPair.token1.symbol} id={2} onClickHandler={openTokenSelector}/>
                 </div>
                 <p className="text-[white] pl-[10px] my-[5px] text-[10px]"> {tokenPair.token1.addr} </p>
+            </div>
+            <div className="flex justify-between items-center mb-[20px] px-[20px] text-[gray]">
+                <div className="flex justify-center items-center">
+                    <p>Auto Tax</p>
+                    <FontAwesomeSvgIcon icon={faCircleQuestion} className="ml-[10px] text-[gray] h-[16px] w-[16px]"/>
+                </div>
+                <div>
+                    <input type={"checkbox"}></input>
+                </div>
+            </div>
+            <div className="flex justify-between items-center mb-[20px] px-[20px] text-[gray]">
+                <div className="flex justify-center items-center">
+                    <p>Slippage</p>
+                    <FontAwesomeSvgIcon icon={faCircleQuestion} className="ml-[10px] h-[16px] w-[16px]"/>
+                </div>
+                <div className="w-[80px] h-[24px] bg-[black] border border-[gray] flex justify-center items-center rounded-[12px]">
+                    <p> 1% </p>
+                </div>
             </div>
             <div className="w-full flex justify-end mb-[20px]">
                 { ( !tokenPair.token0.isNativeToken && swapStatus == 0 && account) &&

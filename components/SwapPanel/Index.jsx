@@ -120,6 +120,8 @@ export default function SwapPanel() {
         }
         setTokenPair(newPair);
         openTokenSelector(0);
+        setAmount0(0);
+        setAmount1(0);
         loadPairInfo();
     }
 
@@ -314,7 +316,7 @@ export default function SwapPanel() {
                     </button>
                 }
                 {  (swapStatus == 0 && account) &&
-                    <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px] mr-10px"
+                    <button className="flex items-center h-[40px] rounded-[5px] border bg-[#5cea69] px-[10px] mr-[10px]"
                         onClick={() => onSwap()}>
                         <p className="px-[5px]"> Swap </p>
                     </button>

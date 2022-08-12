@@ -297,7 +297,7 @@ export default function SwapPanel() {
                         onKeyDown={(e) => onInputKeydown(1)}/>
                     <TokenButton label={tokenPair.token1.symbol} id={2} onClickHandler={openTokenSelector}/>
                 </div>
-                <p className="text-[white] pl-[10px] my-[5px] text-[10px]"> {tokenPair.token0.addr} </p>
+                <p className="text-[white] pl-[10px] my-[5px] text-[10px]"> {tokenPair.token1.addr} </p>
             </div>
             <div className="w-full flex justify-end mb-[20px]">
                 { ( !tokenPair.token0.isNativeToken && swapStatus == 0 && account) &&

@@ -16,6 +16,7 @@ import { RPCURL, SWAP } from "config";
 import { GoChartABI } from "config/gochartabi";
 import { ROUTER_ABI } from "config/swapabi"
 import { BEP20_ABI } from "config/abi";
+import { reduceNumebrs } from "utils";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -261,18 +262,8 @@ export default function SwapPanel() {
         }
     }
 
-    const reduceNumebrs = (num) => {
-        let ans = String(num).split('.');
-        if(ans.length >= 2) {
-            ans = ans[0] + '.' + ans[1].substring(0, 2);
-        } else {
-            ans = ans[0];
-        }
-        return ans;
-    }
-
     return (
-        <div className="w-full flex flex-col bg-[#1E2735] min-h-[500px] mt-[20px]">
+        <div className="w-full flex flex-col bg-[#1E2735] mt-[20px]">
             <div className="w-full h-[60px] items center p-[10px] bg-[#111822] mb-[20px] flex flex-col justify-center">
                 <p className="text-[#ffffffb2] text-[1.25rem]"> Swap </p>
             </div>

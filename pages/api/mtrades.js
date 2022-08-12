@@ -1,4 +1,6 @@
-export default handler = async (req, res) => {
+import fetch from "node-fetch";
+
+export default async (req, res) => {
     if (req.method == "POST") {
         // console.log(req.body.contract_address);
         if (!req.body.contract_address) {
@@ -13,7 +15,7 @@ export default handler = async (req, res) => {
         exchangeName: {in: ["Pancake", "Pancake v2"]}
         baseCurrency: {is: "${req.body.contract_address}"}
         taker: {is: "${req.body.wallet_address}"}
-        date: {till: "${nowtime}"}
+        date: {since: "${nowtime}"}
       ) {
         transaction {
           hash
@@ -71,7 +73,6 @@ export default handler = async (req, res) => {
         await fetch(url, opts)
             .then(res => res.json())
             .then(res => {
-                // console.log(res)
                 data = res.data.ethereum.dexTrades
             })
             .catch(console.error);

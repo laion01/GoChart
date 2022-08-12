@@ -1,7 +1,7 @@
 let recent_liquidities = [];
 import fetch from "node-fetch";
 
-export default handler = async (req, res) => {
+export default async (req, res) => {
     if (req.method == "POST") {
         const FilterString = String(req.body.contract_address).toUpperCase();
         let ans = [];

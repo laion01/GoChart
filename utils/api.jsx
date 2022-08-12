@@ -39,28 +39,28 @@ export const getTradeBook = async (contract_address) => {
 }
 
 export const getYourTrades = async (contract_address, wallet_address) => {
-    let _response = await axios.post(SERVER_ADDR + `/bitquery/mtrades`, {contract_address, wallet_address}).then((response) => {
+    let _response = await axios.post(SERVER_ADDR + `/mtrades`, {contract_address, wallet_address}).then((response) => {
         return response;
     });
     return _response.data;
 }
 
 export const getHolders = async (contract_address) => {
-    let _response = await axios.post(SERVER_ADDR + `/bitquery/holders`, {contract_address}).then((response) => {
+    let _response = await axios.post(SERVER_ADDR + `/holders`, {contract_address}).then((response) => {
         return response;
     });
     return _response.data;
 }
 
 export const getDetails = async (contract_address) => {
-    let _response = await axios.post(SERVER_ADDR + `/bitquery/details`, {contract_address}).then((response) => {
+    let _response = await axios.post(SERVER_ADDR + `/details`, {contract_address}).then((response) => {
         return response;
     });
     return _response.data;
 }
 
 export const getLiquidity = async (contract_address) => {
-    let _response = await axios.post(SERVER_ADDR + `/bitquery/liquidities`, {contract_address}).then((response) => {
+    let _response = await axios.post(SERVER_ADDR + `/liquidities`, {contract_address}).then((response) => {
         return response;
     });
     return _response.data;

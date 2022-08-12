@@ -1,11 +1,10 @@
+import fetch from "node-fetch";
+
 export default async (req, res) => {
     if (req.method == "POST") {
         if (!req.body.contract_address) {
             res.json({ success: false });
         }
-
-        console.log(req.body.contract_address);
-
         var nowtime = new Date().toISOString();
         const query = `{
             ethereum(network: bsc) {
@@ -13,7 +12,7 @@ export default async (req, res) => {
                 options: {limit: 100, desc: "block.height"}
                 exchangeName: {in: ["Pancake", "Pancake v2"]}
                 baseCurrency: {is: "${req.body.contract_address}"}
-                date: {till: "${nowtime}"}
+                date: {since: "${nowtime}"}
               ) {
                 transaction {
                   hash

@@ -4,6 +4,16 @@ import { GoChartABI } from "config/gochartabi";
 import { ROUTER_ABI, PAIR_ABI, FACTORY_ABI } from "config/swapabi";
 import { BEP20_ABI } from "config/abi";
 
+export const reduceNumebrs = (num) => {
+    let ans = String(num).split('.');
+    if(ans.length >= 2) {
+        ans = ans[0] + '.' + ans[1].substring(0, 2);
+    } else {
+        ans = ans[0];
+    }
+    return ans;
+}
+
 export const callSmartContract = async (contract, func, args) => {
     if(!contract) return false;
     if(!contract.methods[func]) return false;

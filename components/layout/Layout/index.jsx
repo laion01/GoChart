@@ -16,7 +16,7 @@ import PairDetails from "components/PairDetails";
 import LogBox from "components/LogBox";
 import { useSelector } from "react-redux";
 
-let AdvancedChart, TickerTape;
+let AdvancedChart, TickerTape, TechnicalAnalysis;
 
 export default function Layout({ children }) {
     // const { isOverlay, isSpinner, isSidebar, isSetting } = useUtil();
@@ -31,6 +31,7 @@ export default function Layout({ children }) {
         const tradingview = require('react-tradingview-embed');
         AdvancedChart = tradingview.AdvancedChart;
         TickerTape = tradingview.TickerTape;
+        TechnicalAnalysis = tradingview.TechnicalAnalysis;
         setUpdate(!update);
         console.log("trading view rended")
     }, [])
@@ -50,6 +51,15 @@ export default function Layout({ children }) {
                     <LogBox/>
                 </div>
                 <div className="min-w-[320px] m-[10px] flex flex-col"> 
+                    <div className="mb-[10px] flex tradingAnalysis:justify-center items-center overflow-x-auto">
+                        { TechnicalAnalysis &&
+                            <TechnicalAnalysis widgetProps={{
+                                "theme": "dark",
+                                "symbol": selectedToken.symbol.length > 0 ? selectedToken.symbol + "USD" : "BNBUSD"
+                            }} 
+                            />
+                        }
+                    </div>
                     <StreamChat />
                     <SwapPanel />
                 </div>

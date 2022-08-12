@@ -15,7 +15,10 @@ module.exports = {
       zIndex: {
         '45': '45',
         '100': '100',
-      }
+      },
+      screens: {
+        'tradingAnalysis': '440px',
+      },
     },
   },
   plugins: [],

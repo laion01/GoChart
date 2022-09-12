@@ -74,3 +74,4 @@ export const SWAP = {
 }
 
 export const SERVER_ADDR = "/api";
+export const SOCKET_SERVER_URL = "http://localhost:5000"

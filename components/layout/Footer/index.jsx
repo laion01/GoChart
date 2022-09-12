@@ -6,15 +6,12 @@ export default function Footer() {
         <div className="w-full bg-[#3234ff] flex flex-col md:flex-row justify-center md:justify-between px-[120px] py-[30px] items-center">
             <div className='flex flex-col'>
                 <div className='text-xs pt-2 text-[white] text-[1.2rem]'>
-                    @ 2022 Crypto Warriors Academy
+                    @ 2022 GoChart
                 </div>
                 
             </div>
             <div className='flex'>
-                <SocialMedia link='https://www.facebook.com/Cryptowarriorsacademy/' iconName='facebook'/>
-                <SocialMedia link='https://www.youtube.com/channel/UCeHxZN4Y3-w9cxR4kX5ty5Q' iconName='youtube'/>
-                <SocialMedia link='https://www.instagram.com/cryptowarriorscommunity/' iconName='instagram'/>
-                <SocialMedia link='https://www.linkedin.com/company/crypto-warriors-community/' iconName='linkedin'/>
+                
             </div>
             {/* <div className='flex flex-col justify-end items-center'>
                     <div className='flex space-x-[5px]'>

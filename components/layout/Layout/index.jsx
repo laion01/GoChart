@@ -22,8 +22,8 @@ export default function Layout({ children }) {
     // const { isOverlay, isSpinner, isSidebar, isSetting } = useUtil();
     const isOverlay = useSelector((state) => state.util.isOverlay);
     const isSpinner = useSelector((state) => state.util.isSpinner);
-    const isSidebar = useSelector((state) => state.util.isSidebar);
     const isSetting = useSelector((state) => state.util.isSetting);
+    const isSidebar = useSelector((state) => state.util.isSidebar);
     const selectedToken = useSelector((state) => state.util.selectedToken);
     let [update, setUpdate] = useState(false);
 
@@ -40,30 +40,9 @@ export default function Layout({ children }) {
         <div>
             <Header />
             <Sidebar />
-            <div className={"mt-[61px] min-h-[200px] flex justify-center bg-[black] flex flex-col lg:flex-row" + (isSidebar ? " ml-[250px]" : " lg:ml-[70px] ml-[0px]")}>
-                <div className="flex flex-col m-[10px] justify-start grow"> 
-                    <div className="w-full">
-                        <Image alt="" src="/images/banner/banner.png" width={671} height={88} layout={'responsive'}/>
-                    </div>
-                    <TrendingBar/>
-                    <PairDetails/>
-                    <TradingView selectedToken={ selectedToken } AdvancedChart={AdvancedChart} TickerTape={TickerTape}/>
-                    <LogBox/>
-                </div>
-                <div className="min-w-[320px] m-[10px] flex flex-col"> 
-                    <div className="mb-[10px] flex tradingAnalysis:justify-center items-center overflow-x-auto">
-                        { TechnicalAnalysis &&
-                            <TechnicalAnalysis widgetProps={{
-                                "theme": "dark",
-                                "symbol": selectedToken.symbol.length > 0 ? selectedToken.symbol + "USD" : "BNBUSD"
-                            }} 
-                            />
-                        }
-                    </div>
-                    <StreamChat />
-                    <SwapPanel />
-                </div>
-            </div>
+            {
+                children
+            }
             { isSetting &&
                 <SettingsPanel />
             }

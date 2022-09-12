@@ -2009,7 +2009,7 @@ core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.3.tgz#a6042d3634c2b27e9328f837b965fac83808db85"
   integrity sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==
 
-cors@^2.8.1, cors@~2.8.5:
+cors@^2.8.1, cors@^2.8.5, cors@~2.8.5:
   version "2.8.5"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.5.tgz#eac11da51592dd86b9f06f6e7ac293b3df875d29"
   integrity sha512-KIHbLJqu73RGr/hnbrO9uBeixNGuvSQjul/jdFvS/KFSIH1hWVd1ng7zOHx+YrEfInLG7q4n6GHQ9cDtxv/P6g==
@@ -3063,7 +3063,7 @@ expand-template@^2.0.3:
   resolved "https://registry.yarnpkg.com/expand-template/-/expand-template-2.0.3.tgz#6e14b3fcee0f3a6340ecb57d2e8918692052a47c"
   integrity sha512-XYfuKMvj4O35f/pOXLObndIRvyQ+/+6AhODh+OKWj9S9498pHHn/IMszH+gt0fBCRWMNfk1ZSp5x3AifmnI2vg==
 
-express@^4.14.0:
+express@^4.14.0, express@^4.18.1:
   version "4.18.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.18.1.tgz#7797de8b9c72c857b9cd0e14a5eea80666267caf"
   integrity sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q==
@@ -3678,6 +3678,11 @@ http-signature@~1.2.0:
     assert-plus "^1.0.0"
     jsprim "^1.2.2"
     sshpk "^1.7.0"
+
+http@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/http/-/http-0.0.1-security.tgz#3aac09129d12dc2747bbce4157afde20ad1f7995"
+  integrity sha512-RnDvP10Ty9FxqOtPZuxtebw1j4L/WiqNMDtuc1YMH1XQm5TgDRaR1G9u8upL6KD1bXHSp9eSXo/ED+8Q7FAr+g==
 
 iconv-lite@0.4.24:
   version "0.4.24"

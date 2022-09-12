@@ -83,7 +83,7 @@ export default function TokenSelector({cls}) {
         <div className={"relative mr-[10px] " + cls}>
             <div className="w-full flex">
                 <input 
-                    className="max-w-[320px] h-[40px] text-[white] rounded-l-[8px] px-[10px] bg-[#1E2735] caret-[white]"
+                    className="outline-none max-w-[320px] h-[40px] text-[white] rounded-l-[8px] px-[10px] bg-[#1E2735] caret-[white]"
                     placeholder="Input Token address"
                     value={searchString}
                     type='text'
@@ -99,7 +99,7 @@ export default function TokenSelector({cls}) {
                     <div className="fixed top-0 left-0 w-[100vw] h-[100vh] z-40" 
                         onClick={() => openDropDown(false)}>
                     </div>
-                    <div className="absolute w-full max-h-[320px] bg-[#1E2735] rounded-[8px] mt-[5px] flex flex-col overflow-scroll overflow-x-auto z-40 top-[45px]">
+                    <div className="absolute w-[400px] max-h-[320px] bg-[#1E2735] rounded-[8px] mt-[5px] flex flex-col overflow-scroll overflow-x-auto z-40 top-[45px]">
                         {
                             tokenList.filter(token => checkSearch(token, searchString)).map((token, key) =>
                                 <TokenListItem key={key} name={token.name} symbol={token.symbol} address={token.addr} isNativeToken={token.isNativeToken} onClickHandler={onSelect}/>

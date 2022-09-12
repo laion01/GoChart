@@ -18,7 +18,7 @@ const MetamaskWallet = new InjectedConnector({
 
 const CoinbaseWallet = new WalletLinkConnector({
     url: `https://data-seed-prebsc-2-s2.binance.org:8545`,
-    appName: "Crypto Warriors ICO Platform",
+    appName: "GoChart Platform",
     supportedChainIds: [1, 56, 97, 137],
 });
 
